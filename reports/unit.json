@@ -1,0 +1,15 @@
+{
+  "status": "PASS",
+  "tests": [
+    {
+      "name": "muldiv",
+      "status": "PASS",
+      "output": "PASS muldiv vectors=2560 latency=32\ntb/tb_muldiv.v:19: $finish called at 870430000 (1ps)"
+    },
+    {
+      "name": "cache",
+      "status": "PASS",
+      "output": "PASS cache rollback/noallocate/conflict/error/invalidate/reset requests=11\ntb/tb_cache.v:85: $finish called at 1310000 (1ps)"
+    }
+  ]
+}

@@ -1,0 +1,17 @@
+read_verilog rtl/rv32_muldiv.v rtl/rv32_core.v rtl/rv32_cache.v rtl/rv32_axi_bridge.v rtl/rv32_soc.v
+hierarchy -check -top rv32_soc
+proc
+opt
+memory_dff
+memory_collect
+opt_clean
+check -assert
+tee -o build/synthesis-stat.json stat -json
+write_json build/synthesis.json
+# Fully map the compute block separately; caches retain inferred memories above.
+design -reset
+read_verilog rtl/rv32_muldiv.v
+synth -top rv32_muldiv
+check -assert
+tee -o build/muldiv-stat.json stat -json
+write_json build/muldiv-netlist.json

@@ -1,0 +1,36 @@
+name: RTL verification
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  verification:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install open-source EDA and RV32 toolchain
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y iverilog verilator yosys gcc-riscv64-unknown-elf binutils-riscv64-unknown-elf
+      - name: Strict RTL lint
+        run: make lint
+      - name: Unit and instruction differential regression
+        run: make test
+      - name: Cross-simulator check
+        run: make test-verilator
+      - name: Structural synthesis and multiplier/divider mapping
+        run: make synth
+      - name: Preserve reports and failure traces
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: verification-reports
+          path: |
+            reports/
+            build/*.trace
+            build/*.log
+            build/*stat.json
+          retention-days: 14

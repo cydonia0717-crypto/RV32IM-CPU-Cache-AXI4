@@ -1,0 +1,14 @@
+Local validation snapshot: 2026-10-11
+Icarus Verilog: 12.0
+Verilator: 5.020
+RISC-V GCC: 13.2.0
+RISC-V binutils: 2.42
+Yosys: 0.33 (git sha1 2584903a060)
+RTL lint: verilator --lint-only --Wall --top-module rv32_soc rtl/*.v
+Result: exit 0, no warnings
+System regression: 44 cases, 83620 instruction/trap records, PASS
+Cross-simulator: 3 cases, 13615 instruction/trap records, PASS
+Unit tests: multiplier/divider 2560 vectors and cache tests, PASS
+Synthesis: whole-SoC structural check with memories retained, PASS
+Mapping: multiplier/divider generic gates, 2442 cells, PASS
+Technology mapping/STA/P&R/FPGA hardware: not performed
